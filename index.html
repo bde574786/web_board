@@ -16,17 +16,18 @@
             </div>
             <div class="search_box">
                 <div class="dropdown">
-                    <button class="dropdown_button">
-                        <span>전체</span>
-                        <span><img src="images/arrow_up.png" alt="arrow_up"></span>
+                    <button class="dropdown_button" id="condition_button">
+                        <span id="search_condition">전체(제목 + 내용)</span>
+                        <span><img src="images/arrow_up.png" alt="arrow" id="arrow_image"></span>
                     </button>
-                    <div class="dropdown-content">
-                        <a href="#">전체(제목 + 내용)</a>
-                        <a href="#">제목</a>
-                        <a href="#">내용</a>
+                    <div class="dropdown_content" id="dropdown_content">
+                        <a href="#" data-value="all">전체(제목 + 내용)</a>
+                        <a href="#" data-value="title">제목</a>
+                        <a href="# "data-value="content">내용</a>
                     </div>
                 </div>
                 <input type="text" placeholder="Search" class="search_input">
+                <button class="search_button" id="search_button"></button>
             </div>
         </div>
         <div class="board_list_wrap">
@@ -78,6 +79,7 @@
                 <a href="" class="button next">></a>
             </div>
     </div>
+    <script src="js/index.js"></script>
 </body>
 
 </html>
