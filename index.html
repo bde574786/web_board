@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>게시판</title>
+    <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+    <div class="board_wrap">
+        <div class="board_header_wrap">
+            <div class="board_title">
+                <strong>게시판</strong>
+            </div>
+            <div class="search_box">
+                <div class="dropdown">
+                    <button class="dropdown_button">
+                        <span>전체</span>
+                        <span><img src="arrow_up.png" alt="arrow_up"></span>
+                    </button>
+                    <div class="dropdown-content">
+                        <a href="#">전체(제목 + 내용)</a>
+                        <a href="#">제목</a>
+                        <a href="#">내용</a>
+                    </div>
+                </div>
+                <input type="text" placeholder="Search" class="search_input">
+            </div>
+        </div>
+        <div class="board_list_wrap">
+            <div class="board_list">
+                <div class="top">
+                    <div class="num">번호</div>
+                    <div class="title">제목</div>
+                    <div class="writer">글쓴이</div>
+                    <div class="date">작성일</div>
+                </div>
+                <div>
+                    <div class="num">4</div>
+                    <div class="title"><a href="#">글 제목 1</a></div>
+                    <div class="writer">이름 1</div>
+                    <div class="date">2024.02.18</div>
+                </div>
+                <div>
+                    <div class="num">3</div>
+                    <div class="title"><a href="#">글 제목 2</a></div>
+                    <div class="writer">이름 2</div>
+                    <div class="date">2024.02.18</div>
+                </div>
+                <div>
+                    <div class="num">2</div>
+                    <div class="title"><a href="#">글 제목 3</a></div>
+                    <div class="writer">이름 3</div>
+                    <div class="date">2024.02.18</div>
+                </div>
+                <div>
+                    <div class="num">1</div>
+                    <div class="title"><a href="#">글 제목 4</a></div>
+                    <div class="writer">이름 4</div>
+                    <div class="date">2024.02.18</div>
+                </div>
+            </div>
+        </div>
+        <div class="button_wrap">
+            <button class="write_button">
+                글 쓰기
+            </button>
+        </div>
+            <div class="board_page">
+                <a href="" class="button prev"><</a>
+                <a href="" class="num">1</a>
+                <a href="" class="num">2</a>
+                <a href="" class="num">3</a>
+                <a href="" class="num">4</a>
+                <a href="" class="num">5</a>
+                <a href="" class="button next">></a>
+            </div>
+    </div>
+</body>
+
+</html>

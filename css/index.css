@@ -1,0 +1,212 @@
+@font-face {
+    font-family: 'SOYOMapleBoldTTF';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2310@1.0/SOYOMapleBoldTTF.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 10px;
+    font-family: 'SOYOMapleBoldTTF', sans-serif;
+}
+
+a {
+    text-decoration: none;
+    color: inherit
+}
+
+.board_wrap {
+    width: 1300px;
+    margin: 100px auto;
+}
+
+.board_header_wrap {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.board_title strong {
+    font-size: 3rem;
+}
+
+.search_box {
+    display: flex;
+    align-items: center;
+}
+
+.search_box input {
+    height: 25px;
+    background-image: url('../search.png');
+    background-size: 15px 15px;
+    background-repeat: no-repeat;
+    background-position: right 7px center;
+    padding-left: 5px;
+    border-radius: 5px;
+    border: 2px solid black ;
+}
+
+.dropdown {
+    align-items: center;
+    margin-right: 10px;
+}
+
+.dropdown span:last-child {
+    justify-content: center;
+    align-items: center;
+}
+
+.dropdown img {
+    width: 10px;
+    height: 10px;
+    padding-right: 2px;
+    margin-left: auto;
+}
+
+.dropdown_button {
+    background-color: lightgray;
+    cursor: pointer;
+    width: 120px;
+    height: 28px;
+    padding: 3px;
+    align-items: center;
+    display: flex;
+    border: none;
+}
+
+.dropdown_button span:first-child {
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    width: 120px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+}
+
+.dropdown-content a:hover {
+    background-color: #f1f1f1
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.board_list {
+    width: 100%;
+    border-top: 2px solid black;
+}
+
+.board_list .top {
+    background-color: #ddd;
+}
+
+.board_list > div {
+    border-bottom: 1px solid #ddd;
+    font-size: 0;
+}
+
+.board_list > div:last-child {
+    border-bottom: 1px solid black;
+}
+
+.board_list > div > div {
+    padding: 15px 0;
+    display: inline-block;
+    text-align: center;
+    font-size: 1.4rem;
+}
+
+.board_list > div.top > div {
+    font-weight: 600;
+}
+
+.board_list .num {
+    width: 10%;
+}
+
+.board_list .title {
+    text-align: center;
+    width: 60%;
+}
+
+.board_list .top .title {
+    text-align: center;
+}
+
+.board_list .writer {
+    width: 10%;
+}
+
+.board_list .date {
+    width: 20%;
+}
+
+.button_wrap {
+    margin-top: 20px;
+    text-align: right;
+}
+
+.write_button {
+    width: 80px;
+    height: 30px;
+    border-radius: 2px;
+    border: none;
+    background-color: lightgray;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.write_button:hover {
+    background-color: #606264;
+    color: white;
+}
+
+.board_page {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 0;
+}
+
+.board_page a {
+    display: inline-block;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #ddd;
+    border-left: 0;
+    vertical-align: middle;
+    line-height: 100%;
+    box-sizing: border-box;
+}
+
+.board_page a.button {
+    padding-top: 10px;
+    font-size: 1.2rem;
+}
+
+.board_page a.num {
+    padding-top: 9px;
+    font-size: 1.4rem;
+}
+
+.board_page a:first-child {
+    border-left: 1px solid #ddd
+}
