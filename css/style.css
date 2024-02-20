@@ -21,7 +21,7 @@ a {
 }
 
 .board_wrap {
-    width: 1300px;
+    width: 1000px;
     margin: 100px auto;
 }
 
@@ -29,6 +29,9 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.board_title {
     margin-bottom: 15px;
 }
 
@@ -217,4 +220,154 @@ a {
 
 .board_page a:first-child {
     border-left: 1px solid #ddd
+}
+
+.board_view {
+    width: 100%;
+    border-top: 2px solid black;
+}
+
+.board_view .title {
+    padding: 20px 15px;
+    border-bottom: 1px dashed #ddd;
+    font-size: 2rem;
+}
+
+.board_view .info {
+    padding: 15px;
+    border-bottom: 1px solid #999;
+    font-size: 0;
+}
+
+.board_view .info dl {
+    position: relative;
+    display: inline-block;
+    padding: 0 20px;
+}
+
+.board_view .info dl:first-child {
+    padding-left: 0;
+}
+
+.board_view .info dl::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: 1px;
+    height: 13px;
+    top: 0;
+    left: 0;
+    background-color: #ddd;
+}
+
+.board_view .info dl:first-child::before {
+    display: none;
+}
+
+.board_view .info dl dt,
+.board_view .info dl dd {
+    display: inline-block;
+    font-size: 1.4rem;
+}
+
+.board_view .info dl dd {
+    margin-left: 10px;
+    color: #777;
+}
+
+.board_view .content {
+    padding: 15px;
+    border-bottom: 1px solid black;
+    line-height: 160%;
+    font-size: 1.4rem;
+}
+
+.board_write {
+    border-top: 2px solid black;
+}
+
+.board_write .title,
+.board_write .writer {
+    padding: 15px;
+}
+
+.board_write .writer {
+    border-top: 1px dashed #ddd;
+    border-bottom: 1px solid black;
+    font-size: 0;
+}
+
+.board_write .title dl {
+    font-size: 0;
+}
+
+.board_write .writer .dl {
+    display: inline-block;
+    width: 50%;
+    vertical-align: middle;
+}
+
+.board_write .title dt,
+.board_write .title dd,
+.board_write .writer dt,
+.board_write .writer dd {
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 1.4rem;
+}
+
+.board_write .title dt,
+.board_write .writer dt {
+    width: 100px;
+}
+
+.board_write .writer dd {
+    width: calc(100% - 100px);
+}
+
+.board_write .title input[type="text"],
+.board_write .writer input[type="text"] {
+    padding: 10px;
+    box-sizing: border-box;
+    width: 300px;
+}
+
+.board_write .content {
+    border-bottom: 1px solid black;
+}
+
+.board_write .content textarea {
+    display: block;
+    width: 100%;
+    height: 300px;
+    padding: 15px;
+    box-sizing: border-box;
+    border: 0;
+    resize: none;
+}
+
+.post_button,
+.cancel_button,
+.list_button,
+.edit_button {
+    width: 80px;
+    height: 30px;
+    border-radius: 2px;
+    border: none;
+    background-color: lightgray;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.post_button:hover,
+.cancel_button:hover,
+.list_button:hover,
+.edit_button:hover {
+    background-color: #606264;
+    color: white;
+}
+
+.cancel_button, 
+.list_button {
+    margin-left: 5px;
 }
