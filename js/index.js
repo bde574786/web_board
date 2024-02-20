@@ -5,9 +5,9 @@ function toggleImage() {
     var image = document.getElementById("arrow_image")
     
     if (content.style.display === "none") {
-        image.src = "images/arrow_up.png"
+        image.src = "../static/images/arrow_up.png"
     } else {
-        image.src = "images/arrow_down.png"
+        image.src = "../static/images/arrow_up.png"
     }
 }
 
@@ -49,3 +49,5 @@ document.getElementById('condition_button').addEventListener("click", function()
     showDropdownContent()
     toggleImage()
 });
+
+
