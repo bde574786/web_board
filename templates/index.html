@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 
 <body>
@@ -18,7 +18,7 @@
                 <div class="dropdown">
                     <button class="dropdown_button" id="condition_button">
                         <span id="search_condition">전체(제목 + 내용)</span>
-                        <span><img src="images/arrow_up.png" alt="arrow" id="arrow_image"></span>
+                        <span><img src="../static/images/arrow_up.png" alt="arrow" id="arrow_image"></span>
                     </button>
                     <div class="dropdown_content" id="dropdown_content">
                         <a href="#" data-value="all">전체(제목 + 내용)</a>
@@ -38,30 +38,14 @@
                     <div class="writer">글쓴이</div>
                     <div class="date">작성일</div>
                 </div>
-                <div>
-                    <div class="num">4</div>
-                    <div class="title"><a href="#">글 제목 1</a></div>
-                    <div class="writer">이름 1</div>
-                    <div class="date">2024.02.18</div>
-                </div>
-                <div>
-                    <div class="num">3</div>
-                    <div class="title"><a href="#">글 제목 2</a></div>
-                    <div class="writer">이름 2</div>
-                    <div class="date">2024.02.18</div>
-                </div>
-                <div>
-                    <div class="num">2</div>
-                    <div class="title"><a href="#">글 제목 3</a></div>
-                    <div class="writer">이름 3</div>
-                    <div class="date">2024.02.18</div>
-                </div>
-                <div>
-                    <div class="num">1</div>
-                    <div class="title"><a href="#">글 제목 4</a></div>
-                    <div class="writer">이름 4</div>
-                    <div class="date">2024.02.18</div>
-                </div>
+                {% for id, title, writer, date in posts %}
+                    <div>
+                        <div class="num">{{ id }}</div>
+                        <div class="title"><a href="#">{{ title }}</a></div>
+                        <div class="writer">{{ writer }}</div>
+                        <div class="date">{{ date }}</div>
+                    </div>
+                {% endfor %}
             </div>
         </div>
         <div onclick="window.location.href='write.html';" class="button_wrap">
@@ -79,7 +63,8 @@
                 <a href="" class="button next">></a>
             </div>
     </div>
-    <script src="js/index.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../static/js/index.js"></script>
 </body>
 
 </html>
