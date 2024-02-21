@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request
+from flask import Flask, render_template, jsonify, request, redirect
 import pymysql
 
 app = Flask(__name__)
@@ -30,6 +30,10 @@ def make_handle():
     )
     
     return conn
+
+@app.route('/')
+def index_redirect():
+    return redirect('/index')
 
 
 @app.route('/index')
