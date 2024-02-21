@@ -120,8 +120,8 @@ def view_post(id):
         print(f"Error: {e}")
 
 
-@app.route('/edit_post/<int:id>')
-def edit_post(id):
+@app.route('/get_post_data/<int:id>')
+def get_post_data(id):
     conn = make_handle()
     
     try:
@@ -129,6 +129,7 @@ def edit_post(id):
             cursor = conn.cursor()
             query = f"""
                 SELECT
+                    id,
                     title,
                     writer,
                     content
@@ -141,11 +142,31 @@ def edit_post(id):
 
         return render_template('edit.html', post=result)
             
-            
     except:
         pass
 
 
+@app.route('/edit_post/<int:id>', methods=['POST'])
+def edit_post(id):
+    data = request.json
+    conn = make_handle()
+    
+    try:
+        with conn.cursor() as cursor:
+            cursor = conn.cursor()
+            query = f"""
+                UPDATE post
+                SET title ='{data['title']}', writer = '{data['writer']}', content = '{data['content']}'
+                WHERE id = {id}
+            """
+            
+            cursor.execute(query)
+            conn.commit()
+            
+        return "success"
+    except Exception as e:
+        print(e)
+        return "error"
 
 
 
