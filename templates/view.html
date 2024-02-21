@@ -21,7 +21,7 @@
                 <div class="info">
                     <dl>
                         <dt>번호</dt>
-                        <dd>{{ post[0] }}</dd>
+                        <dd id="post_id">{{ post[0] }}</dd>
                     </dl>
                     <dl>
                         <dt>글쓴이</dt>
@@ -38,14 +38,15 @@
             </div>
         </div>
         <div class="button_wrap">
-            <button class="edit_button" id="edit_button">
+            <button onclick="window.location.href='/edit_post/{{ post[0] }}';" class="edit_button" id="edit_button">
                 수정
             </button>
-            <button onclick="window.location.href='/index';" class="list_button">
+            <button onclick=window.history.back(); class="list_button">
                 목록
             </button>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../static/js/view.js"></script>
 </body>
 

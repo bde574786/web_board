@@ -77,11 +77,11 @@ def write_post():
     try:
         with conn.cursor() as cursor:
             cursor = conn.cursor()
-            query = """
+            query = f"""
                 INSERT INTO 
                     POST(title, writer, content)
-                VALUES('%s', '%s', '%s');
-            """ % (data['title'], data['writer'], data['content'])
+                VALUES({data['title']}, {data['writer']}, {data['content']});
+            """
 
             cursor.execute(query)
             conn.commit()
@@ -93,12 +93,12 @@ def write_post():
         return "error"
 
 
-@app.route('/post_view/<int:id>')
-def post_view(id):
+@app.route('/view_post/<int:id>')
+def view_post(id):
     conn = make_handle()
     
     try:
-        with conn.cursor() as curor:
+        with conn.cursor() as cursor:
             cursor = conn.cursor()
             query = f"""
                 SELECT 
@@ -118,6 +118,34 @@ def post_view(id):
 
     except Exception as e:
         print(f"Error: {e}")
+
+
+@app.route('/edit_post/<int:id>')
+def edit_post(id):
+    conn = make_handle()
+    
+    try:
+        with conn.cursor() as cursor:
+            cursor = conn.cursor()
+            query = f"""
+                SELECT
+                    title,
+                    writer,
+                    content
+                FROM post
+                WHERE id={id}
+            """
+            
+            cursor.execute(query)
+            result = cursor.fetchone()
+
+        return render_template('edit.html', post=result)
+            
+            
+    except:
+        pass
+
+
 
 
 

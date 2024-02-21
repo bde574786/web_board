@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 
 <body>
@@ -18,17 +18,17 @@
                 <div class="title">
                     <dl>
                         <dt>제목</dt>
-                        <dd><input type="text" placeholder="제목 입력"></dd>
+                        <dd><input type="text" placeholder="제목 입력" value="{{ post[0] }}"></dd>
                     </dl>
                 </div>
                 <div class="writer">
                     <dl>
                         <dt>글쓴이</dt>
-                        <dd><input type="text" placeholder="글쓴이 입력"></dd>
+                        <dd><input type="text" placeholder="글쓴이 입력" value="{{ post[1] }}"></dd>
                     </dl>
                 </div>
                 <div class="content">
-                    <textarea placeholder="내용 입력"></textarea>
+                    <textarea placeholder="내용 입력">{{ post[2] }}</textarea>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
             <button onclick="window.location.href='index.html';" class="post_button">
                 등록
             </button>
-            <button onclick="window.location.href='index.html';" class="cancel_button">
+            <button onclick=window.history.back(); class="cancel_button">
                 취소
             </button>
         </div>
