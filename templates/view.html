@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 
 <body>
@@ -16,42 +16,37 @@
         <div class="board_view_wrap">
             <div class="board_view">
                 <div class="title">
-                    글 제목이 들어갑니다.
+                    {{ post[1] }}
                 </div>
                 <div class="info">
                     <dl>
                         <dt>번호</dt>
-                        <dd>1</dd>
+                        <dd>{{ post[0] }}</dd>
                     </dl>
                     <dl>
                         <dt>글쓴이</dt>
-                        <dd>글쓴이</dd>
+                        <dd>{{ post[2] }}</dd>
                     </dl>
                     <dl>
                         <dt>작성일</dt>
-                        <dd>2021.01.16</dd>
+                        <dd>{{ post[4] }}</dd>
                     </dl>
                 </div>
                 <div class="content">
-                    글 내용이 들어갑니다<br>
-                    글 내용이 들어갑니다<br>
-                    글 내용이 들어갑니다<br>
-                    글 내용이 들어갑니다<br>
-                    글 내용이 들어갑니다<br>
-                    글 내용이 들어갑니다<br>
+                    {{ post[3] }}
                 </div>
             </div>
         </div>
         <div class="button_wrap">
-            <button onclick="window.location.href='edit.html';" class="edit_button">
+            <button class="edit_button" id="edit_button">
                 수정
             </button>
-            <button onclick="window.location.href='index.html';" class="list_button">
+            <button onclick="window.location.href='/index';" class="list_button">
                 목록
             </button>
         </div>
     </div>
-    <script src="js/index.js"></script>
+    <script src="../static/js/view.js"></script>
 </body>
 
 </html>

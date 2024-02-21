@@ -68,6 +68,7 @@ def index():
 def write():
     return render_template('write.html')
 
+
 @app.route('/write_post', methods=["POST"])
 def write_post():
     data = request.json
@@ -76,8 +77,9 @@ def write_post():
     try:
         with conn.cursor() as cursor:
             cursor = conn.cursor()
-            query = f"""
-                INSERT INTO POST(title, writer, content)
+            query = """
+                INSERT INTO 
+                    POST(title, writer, content)
                 VALUES('%s', '%s', '%s');
             """ % (data['title'], data['writer'], data['content'])
 
@@ -89,6 +91,35 @@ def write_post():
     except Exception as e:
         print(f"Error: {e}")
         return "error"
+
+
+@app.route('/post_view/<int:id>')
+def post_view(id):
+    conn = make_handle()
+    
+    try:
+        with conn.cursor() as curor:
+            cursor = conn.cursor()
+            query = f"""
+                SELECT 
+                    id, 
+                    title, 
+                    writer, 
+                    content, 
+                    DATE_FORMAT(updated_at, '%Y-%m-%d') as date
+                FROM post
+                WHERE id = {id}
+            """
+            
+            cursor.execute(query)
+            result = cursor.fetchone()
+
+        return render_template('view.html', post=result)
+
+    except Exception as e:
+        print(f"Error: {e}")
+
+
 
 if __name__ == '__main__':
     initialize_table()
