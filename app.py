@@ -15,7 +15,7 @@ def initialize_table():
                         content TEXT,
                         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-                );
+                )
                 """
             cursor.execute(create_table_query)
     except Exception as e:
@@ -48,10 +48,10 @@ def index():
                     id, 
                     title, 
                     writer, 
-                    DATE_FORMAT(updated_at, '%Y-%m-%d') as date
+                    DATE_FORMAT(created_at, '%Y-%m-%d') as date
                 FROM
                     post
-                ORDER BY updated_at DESC;
+                ORDER BY date DESC
             """
             cursor.execute(query)
             result = cursor.fetchall()
@@ -80,7 +80,7 @@ def write_post():
             query = f"""
                 INSERT INTO 
                     POST(title, writer, content)
-                VALUES({data['title']}, {data['writer']}, {data['content']});
+                VALUES('{data['title']}', '{data['writer']}', '{data['content']}');
             """
 
             cursor.execute(query)
@@ -106,7 +106,7 @@ def view_post(id):
                     title, 
                     writer, 
                     content, 
-                    DATE_FORMAT(updated_at, '%Y-%m-%d') as date
+                    DATE_FORMAT(created_at, '%Y-%m-%d') as date
                 FROM post
                 WHERE id = {id}
             """
@@ -168,6 +168,25 @@ def edit_post(id):
         print(e)
         return "error"
 
+
+@app.route('/delete_post/<int:id>', methods=['POST'])
+def delete_post(id):
+    conn = make_handle()
+    
+    try:
+        with conn.cursor() as cursor:
+            cursor = conn.cursor()
+            query = f"""
+                DELETE FROM post
+                WHERE id = {id}
+            """
+
+            cursor.execute(query)
+            conn.commit()
+        return "success"
+    except Exception as e:
+        print(e)
+        return "error"
 
 
 if __name__ == '__main__':

@@ -349,7 +349,8 @@ a {
 .post_button,
 .cancel_button,
 .list_button,
-.edit_button {
+.edit_button,
+.delete_button {
     width: 80px;
     height: 30px;
     border-radius: 2px;
@@ -362,12 +363,14 @@ a {
 .post_button:hover,
 .cancel_button:hover,
 .list_button:hover,
-.edit_button:hover {
+.edit_button:hover,
+.delete_button:hover {
     background-color: #606264;
     color: white;
 }
 
 .cancel_button, 
-.list_button {
+.list_button,
+.delete_button {
     margin-left: 5px;
 }
