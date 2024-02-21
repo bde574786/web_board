@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시판</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="../static/css/style.css">
 </head>
 
 <body>
@@ -33,15 +33,16 @@
             </div>
         </div>
         <div class="button_wrap">
-            <button onclick="window.location.href='index.html';" class="post_button">
+            <button class="post_button" id="post_button">
                 등록
             </button>
-            <button onclick="window.location.href='index.html';" class="cancel_button">
+            <button onclick="window.location.href='/index';" class="cancel_button">
                 취소
             </button>
         </div>
     </div>
-    <script src="js/index.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../static/js/write.js"></script>
 </body>
 
 </html>
