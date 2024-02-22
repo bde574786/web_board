@@ -132,6 +132,11 @@ a {
     width: 20%;
 }
 
+.board_list .title a:hover {
+    text-decoration: underline;
+    color: #999;
+}
+
 .button_wrap {
     margin-top: 20px;
     text-align: right;
