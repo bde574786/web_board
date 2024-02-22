@@ -24,12 +24,12 @@ document.addEventListener('DOMContentLoaded', function() {
         data['userInput'] = userInput;
 
         $.ajax({
-            type: "GET",
-            url: "/search?" + $.param(data),
+            type: "POST",
+            url: "/search",
             contentType: "application/json",
+            data: JSON.stringify(data),
             success: function (response) {
-                alert(response)
-                window.location.href('/index')
+
             }
         })
 
