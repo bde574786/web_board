@@ -37,9 +37,7 @@ def index_redirect():
 
 
 @app.route('/index')
-@app.route('/search', methods=['POST'])
 def index():
-    currunt_path = request.path
     conn = make_handle()
     try:
         with conn.cursor() as cursor:
@@ -53,31 +51,14 @@ def index():
                     DATE_FORMAT(created_at, '%Y-%m-%d') as date
                 FROM
                     post
+                ORDER BY date DESC
             """
-            
-            if currunt_path == '/search':
-                data = request.get_json()
-                option = data['option']
-                user_input = data['userInput']
-                
-                if option == 'all':
-                    query += f"WHERE title LIKE '%{user_input}%' OR content LIKE '%{user_input}%'"
-                elif option == 'title':
-                    query += f"WHERE title LIKE '%{user_input}%'"
-                elif option == 'writer':
-                    query += f"WHERE content LIKE '%{user_input}%'"
-            
-                cursor.execute(query)
-                result = cursor.fetchall()
-                print(result)
-                return render_template('index.html', posts=result)
             
             
             cursor.execute(query)
             result = cursor.fetchall()
-            print(result)
             
-            return render_template('index.html', post=result)
+            return render_template('index.html', posts=result)
     
     except Exception as e:
         print(f"Error: {e}")
@@ -92,7 +73,7 @@ def write():
 
 @app.route('/write_post', methods=["POST"])
 def write_post():
-    data = request.get_json()
+    data = request.json
     conn = make_handle()
     
     try:
@@ -169,7 +150,7 @@ def get_post_data(id):
 
 @app.route('/edit_post/<int:id>', methods=['POST'])
 def edit_post(id):
-    data = request.get_json()
+    data = request.json
     conn = make_handle()
     
     try:
@@ -210,6 +191,39 @@ def delete_post(id):
         return "error"
 
 
+@app.route('/search', methods=['GET'])
+def search_data():
+    conn = make_handle()
+    
+    option = request.args.get('option')
+    user_input = request.args.get('userInput')
+    
+    query = """
+                SELECT 
+                    id
+                FROM
+                    post 
+            """
+    
+    try:
+        with conn.cursor() as cursor:
+            cursor = conn.cursor()
+            if option == 'all':
+                query += f"WHERE title LIKE '%{user_input}%' OR content LIKE '%{user_input}%'"
+            elif option == 'title':
+                query += f"WHERE title LIKE '%{user_input}%'"
+            elif option == 'content':
+                query += f"WHERE content LIKE '%{user_input}%'"
+        
+            cursor.execute(query)
+            result = cursor.fetchall()
+
+        return jsonify(result)
+    except Exception as e:
+        print(e)
+        return 'error'
+
+
 if __name__ == '__main__':
     initialize_table()
-    app.run(debug=True)
+    app.run()
