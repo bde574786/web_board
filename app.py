@@ -53,6 +53,8 @@ def index():
                     post
                 ORDER BY date DESC
             """
+            
+            
             cursor.execute(query)
             result = cursor.fetchall()
             
@@ -187,6 +189,43 @@ def delete_post(id):
     except Exception as e:
         print(e)
         return "error"
+
+@app.route('/search', methods=['GET'])
+def search_data():
+    conn = make_handle()
+    
+    option = request.args.get('option')
+    user_input = request.args.get('userInput')
+    
+    query = """
+                SELECT 
+                    id, 
+                    title, 
+                    writer, 
+                    DATE_FORMAT(created_at, '%Y-%m-%d') as date
+                FROM
+                    post 
+            """
+    
+    try:
+        with conn.cursor() as cursor:
+            cursor = conn.cursor()
+            if option == 'all':
+                query += f"WHERE title LIKE '%{user_input}%' OR content LIKE '%{user_input}%'"
+            elif option == 'title':
+                query += f"WHERE title LIKE '%{user_input}%'"
+            elif option == 'writer':
+                query += f"WHERE content LIKE '%{user_input}%'"
+        
+            print(query)
+            cursor.execute(query)
+            result = cursor.fetchall()
+            print(result)
+        
+        return render_template('index.html', posts=result)
+    except Exception as e:
+        print(e)
+        return 'error'
 
 
 if __name__ == '__main__':

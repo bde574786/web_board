@@ -1,53 +1,37 @@
-var content = document.getElementById("dropdown_content")
-var style = window.getComputedStyle(content);
+document.addEventListener('DOMContentLoaded', function() {
+    const searchButton = document.getElementById('search_button');
+    const dropdown = document.getElementById('dropdown_content');
 
-function toggleImage() {
-    var image = document.getElementById("arrow_image")
-    
-    if (content.style.display === "none") {
-        image.src = "../static/images/arrow_up.png"
-    } else {
-        image.src = "../static/images/arrow_down.png"
-    }
-}
+    searchButton.addEventListener('click', function () {
+        const selectedOption = dropdown.value;
+        var data = {}
+        var userInput = document.getElementById('search_input').value;
 
-function showDropdownContent() {
-    if (style.display == "none") {
-        content.style.display = "block";
-    } else {
-        content.style.display = "none";
-    }
-}
+        switch (selectedOption) {
+            case '전체(제목 + 내용)':
+                data = { 'option': 'all' }
+                break;
+            case '제목':
+                data = { 'option': 'title' }
+                break;
+            case '내용':
+                data = { 'option': 'content' }
+                break;
+            default:
+                alert("올바르지 않은 옵션 !")
+        }
 
-function changeDropdownCondition(element) {
-    var condition = element.getAttribute("data-value");
-    var search_condition = document.getElementById("search_condition");
-    
-    if (condition === "all") {
-        search_condition.textContent = "전체(제목 + 내용)"
-    } else if (condition === "title") {
-        search_condition.textContent = "제목"
-    } else {
-        search_condition.textContent = "내용"
-    }
+        data['userInput'] = userInput;
 
-    content.style.display = "none"
-    toggleImage()
-}
+        $.ajax({
+            type: "GET",
+            url: "/search?" + $.param(data),
+            contentType: "application/json",
+            success: function (response) {
+                alert(response)
+                window.location.href('/index')
+            }
+        })
 
-document.getElementById("search_button").addEventListener("click", function () {
-    alert("검색 버튼 클릭");
+    });
 });
-
-document.querySelectorAll("#dropdown_content a").forEach(item => {
-    item.addEventListener("click", function () {
-        changeDropdownCondition(this)
-    })
-})
-
-document.getElementById('condition_button').addEventListener("click", function() {
-    showDropdownContent()
-    toggleImage()
-});
-
-
