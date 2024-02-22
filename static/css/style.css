@@ -157,37 +157,6 @@ a {
     color: white;
 }
 
-.board_page {
-    margin-top: 10px;
-    text-align: center;
-    font-size: 0;
-}
-
-.board_page a {
-    display: inline-block;
-    width: 32px;
-    height: 32px;
-    border: 1px solid #ddd;
-    border-left: 0;
-    vertical-align: middle;
-    line-height: 100%;
-    box-sizing: border-box;
-}
-
-.board_page a.button {
-    padding-top: 10px;
-    font-size: 1.2rem;
-}
-
-.board_page a.num {
-    padding-top: 9px;
-    font-size: 1.4rem;
-}
-
-.board_page a:first-child {
-    border-left: 1px solid #ddd
-}
-
 .board_view {
     width: 100%;
     border-top: 2px solid black;

@@ -48,10 +48,10 @@ def index():
                     id, 
                     title, 
                     writer, 
-                    DATE_FORMAT(created_at, '%Y-%m-%d') as date
+                    DATE_FORMAT(created_at, '%Y-%m-%d')
                 FROM
                     post
-                ORDER BY date DESC
+                ORDER BY created_at DESC
             """
             
             
@@ -108,7 +108,7 @@ def view_post(id):
                     title, 
                     writer, 
                     content, 
-                    DATE_FORMAT(created_at, '%Y-%m-%d') as date
+                    DATE_FORMAT(created_at, '%Y-%m-%d')
                 FROM post
                 WHERE id = {id}
             """

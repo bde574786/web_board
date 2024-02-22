@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const dropdown = document.getElementById('dropdown_content');
     const parentDiv = document.querySelector('.board_list');
     const childDivs = parentDiv.querySelectorAll('.board_list > div:not(.top)');
-
+    
     searchButton.addEventListener('click', function () {
         const selectedOption = dropdown.value;
         const userInput = document.getElementById('search_input').value;
@@ -44,4 +44,11 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
+
+    document.getElementById('search_input').addEventListener('keypress', function(event) {
+        if (event.keyCode === 13) {
+            searchButton.click();
+        }
+    });
+
 });
