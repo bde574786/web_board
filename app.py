@@ -18,8 +18,8 @@ def initialize_table():
                 )
                 """
             cursor.execute(create_table_query)
-    except Exception as e:
-        print(f"Error : {e}")
+    except:
+        return "error"
 
 def make_handle():
     conn = pymysql.connect(
@@ -60,10 +60,8 @@ def index():
             
             return render_template('index.html', posts=result)
     
-    except Exception as e:
-        print(f"Error: {e}")
-    
-    return 'Hello, World!'
+    except:
+        return "error"
 
 
 @app.route('/write')
@@ -90,8 +88,7 @@ def write_post():
             
             return "success"        
     
-    except Exception as e:
-        print(f"Error: {e}")
+    except:
         return "error"
 
 
@@ -118,8 +115,8 @@ def view_post(id):
 
         return render_template('view.html', post=result)
 
-    except Exception as e:
-        print(f"Error: {e}")
+    except:
+        return "error"
 
 
 @app.route('/get_post_data/<int:id>')
@@ -166,8 +163,7 @@ def edit_post(id):
             conn.commit()
             
         return "success"
-    except Exception as e:
-        print(e)
+    except:
         return "error"
 
 
@@ -186,8 +182,7 @@ def delete_post(id):
             cursor.execute(query)
             conn.commit()
         return "success"
-    except Exception as e:
-        print(e)
+    except:
         return "error"
 
 
@@ -219,9 +214,20 @@ def search_data():
             result = cursor.fetchall()
 
         return jsonify(result)
-    except Exception as e:
-        print(e)
-        return 'error'
+    except:
+        return "error"
+
+@app.errorhandler(400)
+def error_400(e):
+    return render_template('error_400.html')
+
+@app.errorhandler(404)
+def error_404(e):
+    return render_template('error_404.html')
+
+@app.errorhandler(500)
+def error_500(e):
+    return render_template('error_500.html')
 
 
 if __name__ == '__main__':
