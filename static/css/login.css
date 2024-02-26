@@ -1,0 +1,100 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.login_container {
+    width: 430px;
+    height: 500px;
+    border: 1px solid lightgrey;
+    border-radius: 7px;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.login_container img {
+    width: 75px;
+    height: 75px;
+    margin-top: 20px;
+}
+
+.login_container .login_text {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.login_container .login_form {
+    width: 100%;
+    text-align: center;
+}
+
+.login_container .login_form form {
+    display: flex;
+    flex-direction: column;
+}
+
+.login_container .login_form label {
+    text-align: left;
+    margin-bottom: 5px;
+}
+
+.login_container .login_form input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    height: 25px;
+
+}
+
+.login_container .login_form button {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #000000;
+    color: white;
+    cursor: pointer;
+}
+
+.login_container .login_form button:hover {
+    background-color: #5d5f63;
+}
+
+.login_links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.link_item {
+    margin: 0 15px; /* 링크들 사이의 간격 */
+}
+
+.divider {
+    height: 14px; /* 구분선의 높이 */
+    width: 1px; /* 구분선의 너비 */
+    background-color: #ddd; /* 구분선의 색상 */
+}
+
+.login_links a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+.login_links a:hover {
+    text-decoration: underline;
+    color:grey;
+}

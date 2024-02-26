@@ -7,7 +7,7 @@ def initialize_table():
     conn = make_handle()
     try:
         with conn.cursor() as cursor:
-            create_table_query = """
+            create_post_table_query = """
                     CREATE TABLE IF NOT EXISTS POST(
                         id INT AUTO_INCREMENT PRIMARY KEY,
                         title VARCHAR(255),
@@ -17,7 +17,12 @@ def initialize_table():
                         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                 )
                 """
-            cursor.execute(create_table_query)
+            
+            create_user_table_query = """
+                
+            """
+                
+            cursor.execute(create_post_table_query)
     except:
         return "error"
 
@@ -216,6 +221,14 @@ def search_data():
         return jsonify(result)
     except:
         return "error"
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/join')
+def join():
+    return render_template('join.html')
 
 @app.errorhandler(400)
 def error_400(e):

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/login.css">
+    <title>로그인</title>
+</head>
+<body>
+    <div class="login_container">
+        <img src="../static/images/board.png" alt="">
+        <div class="login_text">로그인</div>
+        <div class="login_form">
+            <form action="/login">
+                <label for="id">UserId</label>
+                <input type="text" id="id">
+                <label for="password">Password</label>
+                <input type="password" id="password">
+                <button type="submit">로그인</button>
+            </form>
+        </div>
+        <div class="login_links">
+            <div class="link_item"><a href="/find-id">아이디 찾기</a></div>
+            <div class="divider"></div>
+            <div class="link_item"><a href="/find-password">비밀번호 찾기</a></div>
+            <div class="divider"></div>
+            <div class="link_item"><a onclick="window.location.href='/join'">회원가입</a></div>
+        </div>
+    </div>
+</body>
+</html> 
