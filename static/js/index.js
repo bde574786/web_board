@@ -1,15 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const userProfile = document.getElementById('user_profile');
-    const loginButton = document.getElementById('login_button');
     const searchButton = document.getElementById('search_button');
     const dropdown = document.getElementById('dropdown_content');
     const parentDiv = document.querySelector('.board_list');
     const childDivs = parentDiv.querySelectorAll('.board_list > div:not(.top)');
     
-    loginButton.addEventListener('click', function () {
-        
-    })
-
     searchButton.addEventListener('click', function () {
         const selectedOption = dropdown.value;
         const userInput = document.getElementById('search_input').value;
@@ -56,5 +50,16 @@ document.addEventListener('DOMContentLoaded', function() {
             searchButton.click();
         }
     });
+
+    document.getElementById('more_button').addEventListener('click', function () {
+        var userBox = document.getElementById('user_box');
+
+        if (userBox.style.display == 'none') {
+            userBox.style.display = 'block';
+        } else {
+            userBox.style.display = 'none';
+        }
+
+    })
 
 });

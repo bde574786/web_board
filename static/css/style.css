@@ -20,10 +20,6 @@ a {
     color: inherit
 }
 
-.header_wrap {
-    width: 100%;
-    display: flex;
-}
 
 #login_button {
     width: 90px;
@@ -31,12 +27,9 @@ a {
     background-color: black;
     color: white;
     font-weight: bold;
-    margin-left: auto;
     border-radius: 5px;
     border: none;
     cursor: pointer;
-    margin-top: 10px;
-    margin-right:15px;
     transition: background-color 0.3s, color 0.3s;
 }
 
@@ -44,13 +37,80 @@ a {
     background-color: #606264;
 }
 
-#user_profile {
+.header_wrap {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 10px;
+    background: #fff;
+    margin-bottom: -40px;
+    height: 50px;
+}
+
+#profile_container {
+    position: relative;
+}
+
+
+#more_button {
     width: 50px;
     height: 50px;
-    padding: 10px;
     cursor: pointer;
-    margin-left: auto;
+    margin-top: 20px;
 }
+
+#user_box {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 75px;
+    background-color: #f9f9f9;
+    border: none;
+    border-radius: 20px;
+    padding: 30px;
+    z-index: 10;
+    width: 315px;
+    height: 260px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+#user_box img {
+    margin: auto;
+    width: 120px;
+    height: 120px;
+    padding: 10px;
+    display: block;
+}
+
+#user_box #welcome_message {
+    padding: 10px;
+    font-size: 20px;
+}
+
+#logout_button {
+    background-image: url('../images/logout.png');
+    background-position: left 30px center;
+    background-size: 30px 30px;
+    background-repeat: no-repeat;
+    margin-top: 17px;
+    width: 200px;
+    height: 40px;
+    border: none;
+    border-radius: 30px;
+    background-color: #dbe5f0;
+    cursor: pointer;
+    font-family: 'SOYOMapleBoldTTF', sans-serif;
+    font-size: 15px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+#logout_button:hover {
+    background-color: #999;
+    color: white;
+}
+
 
 .board_wrap {
     width: 1000px;

@@ -9,12 +9,22 @@
 </head>
 <body>
     <div class="header_wrap">
+        {% if user_id %}
+        <div id="profile_container">
+            <div id="user_container">
+                <img src="../static/images/more.png" alt="more.png" id="more_button">
+            </div>
+            <div id="user_box">
+                <img src="../static/images/user.png" alt="user.png">
+                <div id="welcome_message">안녕하세요. {{ user_id }}님</div>
+                <button id="logout_button" onclick="window.location.href='logout'">로그아웃</button>
+            </div>
+        </div>
+        {% else %}
         <button id="login_button" onclick="window.location.href='/login'">
             로그인
         </button>
-        <!--
-            <img src="../static/images/user.png" alt="user.png" id="user_profile">
-        -->
+        {% endif %}
     </div>
     <div class="board_wrap">
         <div class="board_header_wrap">

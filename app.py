@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, redirect, session
+from flask import Flask, render_template, jsonify, request, redirect, session, url_for
 import pymysql
 
 app = Flask(__name__)
@@ -52,6 +52,8 @@ def index_redirect():
 
 @app.route('/index')
 def index():
+    user_id = session.get('user_id')
+    
     conn = make_handle()
     try:
         with conn.cursor() as cursor:
@@ -70,7 +72,7 @@ def index():
             cursor.execute(query)
             result = cursor.fetchall()
             
-            return render_template('index.html', posts=result)
+            return render_template('index.html', posts=result, user_id=user_id)
     
     except:
         return "error"
@@ -291,6 +293,11 @@ def register_user():
     except:
         return 'error'
 
+
+@app.route('/logout')
+def logout():
+    session.pop('user_id', None)
+    return redirect(url_for('index'))
 
 @app.errorhandler(400)
 def error_400(e):
