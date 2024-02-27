@@ -33,8 +33,10 @@ document.getElementById('joinForm').addEventListener('submit', function(e) {
                 if (text === 'success') {
                     alert('회원가입 성공');
                     window.location.href = '/login';
+                } else if (text === 'duplicate_id') {
+                    alert('아이디가 존재합니다.');
                 } else {
-                    alert('회원가입 실패')
+                    alert('회원가입 실패');
             }
             }).catch(error => {
                 alert("요청을 완료할 수 없습니다.")

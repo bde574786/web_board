@@ -86,17 +86,16 @@ def write_post():
     data = request.json
     conn = make_handle()
     
-    try:
-        with conn.cursor() as cursor:
-            query = f"""
+    query = f"""
                 INSERT INTO 
                     POST(title, writer, content)
                 VALUES('{data['title']}', '{data['writer']}', '{data['content']}');
             """
-
+    
+    try:
+        with conn.cursor() as cursor:
             cursor.execute(query)
             conn.commit()
-            
             return "success"        
     
     except:
@@ -234,9 +233,7 @@ def join():
 @app.route('/register_user', methods=['POST'])
 def register_user():
     conn = make_handle()
-    
     data = request.json
-    print(data)
     
     user_id = data['userId']
     username = data['username']
@@ -248,11 +245,22 @@ def register_user():
         values('{user_id}', '{username}', '{phone_number}', '{password}')
     """
     
+    user_id_check_query = f"""
+        SELECT user_id
+        FROM user
+        WHERE user_id = '{user_id}'
+    """
+    
     try:
         with conn.cursor() as cursor:
-            cursor.execute(query)
-            conn.commit()
-            return 'success'
+            cursor.execute(user_id_check_query)
+            if(cursor.fetchone()):
+                return 'duplicate_id'
+            else:
+                cursor.execute(query)
+                conn.commit()
+                return 'success'
+            
     except:
         return 'error'
 
