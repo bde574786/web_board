@@ -235,25 +235,26 @@ def join():
 def register_user():
     conn = make_handle()
     
-    user_id = request.form['id']
-    username = request.form['username']
-    phone_number = request.form['phoneNumber']
-    password = request.form['password']
+    data = request.json
+    print(data)
+    
+    user_id = data['userId']
+    username = data['username']
+    phone_number = data['phoneNumber']
+    password = data['password']
     
     query = f"""
         INSERT INTO user(user_id, username, phone_number, password)
-        values('{user_id}', '{username}', '{phone_number}','{password}')
+        values('{user_id}', '{username}', '{phone_number}', '{password}')
     """
     
     try:
         with conn.cursor() as cursor:
             cursor.execute(query)
             conn.commit()
-            flash('회원가입 성공')
-            return redirect(url_for('login'))
+            return 'success'
     except:
-        flash('에러 발생')
-        return redirect(url_for('join'))
+        return 'error'
 
 
 @app.errorhandler(400)

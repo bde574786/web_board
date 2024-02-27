@@ -12,23 +12,23 @@
     <div class="join_image"><img src="../static/images/board.png" id="board"></div>
     <div class="join_form">Sign up to Board</div>
     <div class="join_container">
-        <form action="/register_user" id="joinForm" method="post">
-            <label for="id">UserId</label>
-            <input type="text" id="id" name="id" required>
+        <form id="joinForm">
+            <label for="userId">UserId</label>
+            <input type="text" id="userId" name="userId" value="bde574786" required>
 
             <label for="username">Username</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username" value="정민수" required>
 
             <label for="phoneNumber">PhoneNumber</label>
-            <input type="text" id="phoneNumber" name="phoneNumber" required>
+            <input type="text" id="phoneNumber" name="phoneNumber" value="010-2807-8263" required>
 
             <label for="password">Password</label>
-            <input type="password" id="password" name="password" required>
+            <input type="password" id="password" name="password" value="Qwe123!@#" required>
 
             <label for="rePassword">Confirm Password</label>
-            <input type="password" id="rePassword" name="rePassword" required>
+            <input type="password" id="rePassword" name="rePassword" value="Qwe123!@#" equired>
 
-            <input type="submit" value="Sign Up">
+            <input type="submit" id="join_button" value="Sign Up">
         </form>
     </div>
     <script src="../static/js/join.js"></script>
