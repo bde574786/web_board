@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, request, redirect, url_for, flash
+from flask import Flask, render_template, jsonify, request, redirect, session
 import pymysql
 
 app = Flask(__name__)
@@ -225,6 +225,33 @@ def search_data():
 @app.route('/login')
 def login():
     return render_template('login.html')
+
+@app.route('/user_login', methods=['POST'])
+def user_login():
+    conn = make_handle()
+    data = request.json
+    
+    user_id = data['userId']
+    password = data['password']
+    
+    query = f"""
+        SELECT user_id, password
+        FROM user
+        WHERE user_id = '{user_id}' AND password = '{password}'
+    """
+    
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute(query)
+            if(cursor.fetchone()):
+                session['user_id'] = user_id
+                return 'success'
+            else:
+                return 'error'
+    except Exception as e:
+        print(e)
+        return 'error'
+
 
 @app.route('/join')
 def join():

@@ -1,4 +1,4 @@
-document.getElementById('joinForm').addEventListener('submit', function(e) {
+document.getElementById('join_form').addEventListener('submit', function(e) {
     e.preventDefault();
 
     var userId = document.getElementById('userId').value;
