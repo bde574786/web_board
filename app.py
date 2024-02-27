@@ -1,7 +1,8 @@
-from flask import Flask, render_template, jsonify, request, redirect
+from flask import Flask, render_template, jsonify, request, redirect, url_for, flash
 import pymysql
 
 app = Flask(__name__)
+app.secret_key = '1234'
 
 def initialize_table():
     conn = make_handle()
@@ -19,10 +20,18 @@ def initialize_table():
                 """
             
             create_user_table_query = """
-                
+                    CREATE TABLE IF NOT EXISTS USER(
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        user_id varchar(255) not null,
+                        username varchar(255) not null,
+                        phone_number varchar(255) not null,
+                        password varchar(255) not null,
+                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                    )
             """
                 
             cursor.execute(create_post_table_query)
+            cursor.execute(create_user_table_query)
     except:
         return "error"
 
@@ -46,8 +55,6 @@ def index():
     conn = make_handle()
     try:
         with conn.cursor() as cursor:
-            cursor = conn.cursor()
-            
             query =  """
                 SELECT 
                     id, 
@@ -81,7 +88,6 @@ def write_post():
     
     try:
         with conn.cursor() as cursor:
-            cursor = conn.cursor()
             query = f"""
                 INSERT INTO 
                     POST(title, writer, content)
@@ -103,7 +109,6 @@ def view_post(id):
     
     try:
         with conn.cursor() as cursor:
-            cursor = conn.cursor()
             query = f"""
                 SELECT 
                     id, 
@@ -130,7 +135,6 @@ def get_post_data(id):
     
     try:
         with conn.cursor() as cursor:
-            cursor = conn.cursor()
             query = f"""
                 SELECT
                     id,
@@ -157,7 +161,6 @@ def edit_post(id):
     
     try:
         with conn.cursor() as cursor:
-            cursor = conn.cursor()
             query = f"""
                 UPDATE post
                 SET title ='{data['title']}', writer = '{data['writer']}', content = '{data['content']}'
@@ -178,7 +181,6 @@ def delete_post(id):
     
     try:
         with conn.cursor() as cursor:
-            cursor = conn.cursor()
             query = f"""
                 DELETE FROM post
                 WHERE id = {id}
@@ -207,7 +209,6 @@ def search_data():
     
     try:
         with conn.cursor() as cursor:
-            cursor = conn.cursor()
             if option == 'all':
                 query += f"WHERE title LIKE '%{user_input}%' OR content LIKE '%{user_input}%'"
             elif option == 'title':
@@ -229,6 +230,31 @@ def login():
 @app.route('/join')
 def join():
     return render_template('join.html')
+
+@app.route('/register_user', methods=['POST'])
+def register_user():
+    conn = make_handle()
+    
+    user_id = request.form['id']
+    username = request.form['username']
+    phone_number = request.form['phoneNumber']
+    password = request.form['password']
+    
+    query = f"""
+        INSERT INTO user(user_id, username, phone_number, password)
+        values('{user_id}', '{username}', '{phone_number}','{password}')
+    """
+    
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute(query)
+            conn.commit()
+            flash('회원가입 성공')
+            return redirect(url_for('login'))
+    except:
+        flash('에러 발생')
+        return redirect(url_for('join'))
+
 
 @app.errorhandler(400)
 def error_400(e):

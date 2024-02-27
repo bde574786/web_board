@@ -12,12 +12,15 @@
     <div class="join_image"><img src="../static/images/board.png" id="board"></div>
     <div class="join_form">Sign up to Board</div>
     <div class="join_container">
-        <form action="/submit_registration" method="post">
+        <form action="/register_user" id="joinForm" method="post">
             <label for="id">UserId</label>
             <input type="text" id="id" name="id" required>
 
             <label for="username">Username</label>
             <input type="text" id="username" name="username" required>
+
+            <label for="phoneNumber">PhoneNumber</label>
+            <input type="text" id="phoneNumber" name="phoneNumber" required>
 
             <label for="password">Password</label>
             <input type="password" id="password" name="password" required>
@@ -28,7 +31,6 @@
             <input type="submit" value="Sign Up">
         </form>
     </div>
-
+    <script src="../static/js/join.js"></script>
 </body>
-
 </html>
