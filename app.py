@@ -62,7 +62,8 @@ def index():
                 SELECT 
                     id, 
                     title, 
-                    writer, 
+                    writer,
+                    secret_key,
                     DATE_FORMAT(created_at, '%Y-%m-%d')
                 FROM
                     post
@@ -207,6 +208,27 @@ def delete_post(id):
     except:
         return "error"
 
+@app.route('/verify_post', methods=['POST'])
+def verify_post():
+    conn = make_handle()
+    data = request.json
+    id = data['id']
+    secret_key = data['secretKey']
+    
+    try:
+        with conn.cursor() as cursor:
+            query = f"""
+                SELECT id, secret_key
+                FROM post
+                WHERE id = '{id}' and secret_key = '{secret_key}'
+            """
+            cursor.execute(query)
+            if(cursor.fetchone()):
+                return "success"
+            else:
+                return "error"
+    except Exception as e:
+        print(e)
 
 @app.route('/search', methods=['GET'])
 def search_data():

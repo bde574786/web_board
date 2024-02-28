@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     const searchButton = document.getElementById('search_button');
     const dropdown = document.getElementById('dropdown_content');
     const parentDiv = document.querySelector('.board_list');
@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    document.getElementById('search_input').addEventListener('keypress', function(event) {
+    document.getElementById('search_input').addEventListener('keypress', function (event) {
         if (event.keyCode === 13) {
             searchButton.click();
         }
@@ -62,4 +62,51 @@ document.addEventListener('DOMContentLoaded', function() {
 
     })
 
+});
+
+
+document.querySelectorAll('.post_link').forEach(link => {
+    link.addEventListener('click', function (e) {
+        const lockIcon = this.parentElement.querySelector('.lock_icon');
+        
+        if (lockIcon) {
+            e.preventDefault();
+            const secretKey = prompt("비밀번호를 입력하세요.")
+            const href = this.getAttribute('href');
+            const id = href.split('/').pop();
+            
+            if (secretKey === null) {
+                return;
+            } else if (secretKey === "") {
+                alert("비밀번호가 입력되지 않았습니다.");
+                return;
+            }
+
+            fetch("/verify_post", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    'id': id,
+                    'secretKey': secretKey
+                })
+            })
+                .then(response => response.text())
+                .then(data => {
+                    if (data === 'success') {
+                        window.location.href = '/view_post/' + id;
+                    } else {
+                        alert("비밀번호가 일치하지 않습니다.");
+                    }
+                }).catch(error => {
+                    console.log(error);
+                alert("요청을 완료할 수 없습니다.")
+            })
+                
+
+        }
+
+
+    });
 });

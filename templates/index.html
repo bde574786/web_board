@@ -51,10 +51,15 @@
                     <div class="writer">글쓴이</div>
                     <div class="date">작성일</div>
                 </div>
-                {% for id, title, writer, date in posts %}
+                {% for id, title, writer, secret_key, date in posts %}
                     <div>
                         <div class="num">{{ id }}</div>
-                        <div class="title"><a href="/view_post/{{ id }}" title="상세보기 페이지로 이동">{{ title }}</a></div>
+                        <div class="title">
+                            {% if secret_key %}
+                            <img src="../static/images/lock.png" alt="Locked" class="lock_icon">
+                            {% endif %}
+                            <a href="/view_post/{{ id }}" title="상세보기 페이지로 이동" class="post_link">{{ title }}</a>
+                        </div>
                         <div class="writer">{{ writer }}</div>
                         <div class="date">{{ date }}</div>
                     </div>

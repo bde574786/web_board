@@ -123,6 +123,14 @@ a {
     align-items: center;
 }
 
+.board_list_wrap img {
+    width: 15px;
+    height: 15px;
+    margin-right: 5px;
+    margin-bottom: 3px;
+    vertical-align: middle;
+}
+
 .board_title {
     margin-bottom: 15px;
 }
