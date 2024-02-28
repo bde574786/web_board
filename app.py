@@ -89,12 +89,25 @@ def write_post():
     data = request.json
     conn = make_handle()
     
-    query = f"""
+    title = data['title']
+    writer = data['writer']
+    secret_key = data['secretKey']
+    content = data['content']
+    
+    if(secret_key):
+        query = f"""
+                INSERT INTO 
+                    POST(title, writer, secret_key, content)
+                VALUES('{title}', '{writer}', '{secret_key}', '{content}');
+            """
+    else:
+        query = f"""
                 INSERT INTO 
                     POST(title, writer, content)
-                VALUES('{data['title']}', '{data['writer']}', '{data['content']}');
+                VALUES('{title}', '{writer}', '{content}');
             """
     
+    print(query)
     try:
         with conn.cursor() as cursor:
             cursor.execute(query)
