@@ -11,9 +11,10 @@ def initialize_table():
             create_post_table_query = """
                     CREATE TABLE IF NOT EXISTS POST(
                         id INT AUTO_INCREMENT PRIMARY KEY,
-                        title VARCHAR(255),
-                        writer VARCHAR(255),
-                        content TEXT,
+                        title VARCHAR(255) not null,
+                        writer VARCHAR(255) not null,
+                        content TEXT not null,
+                        secret_key varchar(255),
                         created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                         updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
                 )
