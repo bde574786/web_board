@@ -38,12 +38,14 @@
             </div>
         </div>
         <div class="button_wrap">
+            {% if session['user_id'] == post[2] %}
             <button onclick="window.location.href='/get_post_data/{{ post[0] }}';" class="edit_button" id="edit_button">
                 수정
             </button>
             <button class="delete_button" id="delete_button">
                 삭제
             </button>
+            {% endif %}
             <button onclick="window.location.href='/index';" class="list_button">
                 목록
             </button>

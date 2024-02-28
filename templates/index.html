@@ -9,14 +9,14 @@
 </head>
 <body>
     <div class="header_wrap">
-        {% if user_id %}
+        {% if session['user_id'] %}
         <div id="profile_container">
             <div id="user_container">
                 <img src="../static/images/more.png" alt="more.png" id="more_button">
             </div>
             <div id="user_box">
                 <img src="../static/images/user.png" alt="user.png">
-                <div id="welcome_message">안녕하세요. {{ user_id }}님</div>
+                <div id="welcome_message">안녕하세요. {{ session['user_id'] }}님</div>
                 <button id="logout_button" onclick="window.location.href='logout'">로그아웃</button>
             </div>
         </div>
@@ -67,9 +67,11 @@
             </div>
         </div>
         <div onclick="window.location.href='/write'" class="button_wrap">
+            {% if session['user_id'] %}
             <button class="write_button">
                 글 쓰기 ✎
             </button>
+            {% endif %}
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

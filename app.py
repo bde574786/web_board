@@ -53,8 +53,6 @@ def index_redirect():
 
 @app.route('/index')
 def index():
-    user_id = session.get('user_id')
-    
     conn = make_handle()
     try:
         with conn.cursor() as cursor:
@@ -74,7 +72,7 @@ def index():
             cursor.execute(query)
             result = cursor.fetchall()
             
-            return render_template('index.html', posts=result, user_id=user_id)
+            return render_template('index.html', posts=result)
     
     except:
         return "error"
