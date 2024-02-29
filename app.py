@@ -363,6 +363,38 @@ def get_id():
     
     return "success"
 
+
+@app.route('/find_password')
+def find_password():
+    return render_template('find_password.html')
+
+
+@app.route('/get_password', methods=['POST'])
+def get_password():
+    data = request.json
+    user_id = data['id']
+    name = data['name']
+    phone_number = data['phoneNumber']
+    
+    conn = make_handle()
+    
+    query = f"""
+        SELECT password
+        FROM USER
+        WHERE user_id = '{user_id}' and username = '{name}' and phone_number = '{phone_number}'
+    """
+    
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute(query)
+            result = cursor.fetchone()
+            return jsonify(result)
+    except Exception as e:
+        print(e)
+        pass
+    
+    return "success"
+
 @app.errorhandler(400)
 def error_400(e):
     return render_template('error_400.html')
