@@ -333,6 +333,36 @@ def logout():
     session.pop('user_id', None)
     return redirect(url_for('index'))
 
+
+@app.route('/find_id')
+def find_id():
+    return render_template('find_id.html')
+
+@app.route('/get_id', methods=['POST'])
+def get_id():
+    data = request.json
+    name = data['name']
+    phone_number = data['phoneNumber']
+    
+    conn = make_handle()
+    
+    query = f"""
+        SELECT user_id
+        FROM USER
+        WHERE username = '{name}' and phone_number = '{phone_number}'
+    """
+    
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute(query)
+            result = cursor.fetchone()
+            return jsonify(result)
+    except Exception as e:
+        print(e)
+        pass
+    
+    return "success"
+
 @app.errorhandler(400)
 def error_400(e):
     return render_template('error_400.html')

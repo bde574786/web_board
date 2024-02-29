@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>아이디 찾기</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .find-id-container {
+            width: 450px;
+            height: 450px;
+            background-color: #fff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: auto;
+            position: relative;
+        }
+
+        h2 {
+            margin-bottom: 55px;
+        }
+
+        .form-group {
+            width: 100%;
+        }
+
+        .form-control,
+        .btn-dark {
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+
+        #customAlert {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+        }
+
+        #customAlert p {
+            text-align: center;
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container" class="find-id-container">
+        <h2>아이디 찾기</h2>
+        <form>
+            <div class="form-group">
+                <label for="name">이름</label>
+                <input type="text" class="form-control" id="name" placeholder="이름 입력">
+            </div>
+            <div class="form-group">
+                <label for="phoneNumber">전화번호</label>
+                <input type="text" class="form-control" id="phoneNumber" placeholder="전화번호 입력">
+            </div>
+            <button id="find_button" class="btn btn-dark">아이디 찾기</button>
+        </form>
+    </div>
+
+    <div id="customAlert">
+        <p id="alertMessage"></p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

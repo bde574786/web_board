@@ -29,3 +29,53 @@ document.getElementById('login_form').addEventListener('submit', function (e) {
     })
 
 })
+
+
+
+
+function openFindId() {
+    var popup;
+    if (!popup || popup.closed) {
+        popup = window.open('/find_id', 'newwindow', 'width=500,height=500');
+    } else {
+        popup.focus();
+        return;
+    }
+
+    popup.addEventListener('DOMContentLoaded', function () {
+        popup.document.getElementById('find_button').addEventListener('click', function() {
+            var name = popup.document.getElementById('name').value;
+            var phoneNumber = popup.document.getElementById('phoneNumber').value;
+
+            var data = {
+                'name': name,
+                'phoneNumber': phoneNumber
+            }
+
+            fetch("/get_id", {
+                    method: "POST",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    var container = popup.document.getElementById('container');
+                    var customAlert = popup.document.getElementById('customAlert');
+                    var alertMessage = popup.document.getElementById('alertMessage');
+
+                    container.style.display = 'none';
+                    customAlert.style.display = 'block';
+                    if (data) {    
+                        alertMessage.textContent = "회원님의 아이디는" + data[0] + "입니다."
+                    } else {
+                        alertMessage.textContent = "정보를 찾을 수 없습니다."
+                    }
+                })
+                .catch(error => {
+                    console.error("요청을 완료할 수 없습니다:", error);
+                });
+        });
+    });
+}
