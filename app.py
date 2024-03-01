@@ -68,7 +68,7 @@ def index():
     conn = make_handle()
     try:
         with conn.cursor() as cursor:
-            query =  """
+            post_view_query =  """
                 SELECT 
                     p.id, 
                     p.title, 
@@ -81,11 +81,20 @@ def index():
                 ORDER BY created_at DESC
             """
             
+            file_check_query = f"""
+                SELECT id
+                FROM post
+                WHERE id IN (SELECT DISTINCT post_id FROM file);
+            """
             
-            cursor.execute(query)
+            cursor.execute(post_view_query)
             result = cursor.fetchall()
             
-            return render_template('index.html', posts=result)
+            cursor.execute(file_check_query)
+            post_ids = cursor.fetchall()
+            print(post_ids)
+            
+            return render_template('index.html', posts=result, post_ids=post_ids)
     
     except:
         return "error"

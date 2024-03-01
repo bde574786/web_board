@@ -123,7 +123,8 @@ a {
     align-items: center;
 }
 
-.board_list_wrap img {
+.board_list_wrap .lock_icon,
+.board_list_wrap .file_icon {
     width: 15px;
     height: 15px;
     margin-right: 5px;
@@ -221,7 +222,7 @@ a {
 }
 
 .board_list .title {
-    text-align: center;
+    text-align: start;
     width: 60%;
 }
 

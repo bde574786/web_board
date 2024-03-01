@@ -59,6 +59,11 @@
                             <img src="../static/images/lock.png" alt="Locked" class="lock_icon">
                             {% endif %}
                             <a href="/view_post/{{ id }}" title="상세보기 페이지로 이동" class="post_link">{{ title }}</a>
+                            {% for post_id in post_ids %}
+                                {% if id == post_id[0] %}
+                                    <img src="../static/images/file.png" alt="file" class="file_icon">
+                                {% endif %}
+                            {% endfor %}
                         </div>
                         <div class="writer">{{ writer }}</div>
                         <div class="date">{{ date }}</div>
