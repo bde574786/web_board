@@ -272,6 +272,25 @@ a {
     padding: 20px 15px;
     border-bottom: 1px dashed #ddd;
     font-size: 2rem;
+    display: flex;
+}
+
+.board_view .title #file_download {
+    margin-left: auto;
+    font-size: 14px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.board_view .title #file_download:hover {
+    color: #777;
+    text-decoration: underline;
+}
+
+.board_view .title img {
+    width: 12px;
+    height: 12px;
+    margin-bottom: -2px;
 }
 
 .board_view .info {

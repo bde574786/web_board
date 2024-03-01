@@ -19,3 +19,13 @@ document.getElementById('delete_button').addEventListener("click", function () {
     })
 
 })
+
+document.getElementById('file_download').addEventListener("click", function () {
+    var fileId = document.getElementById('file_id').value;
+    var matches = fileId.match(/\d+/g);
+    var id = matches.map(function(match) {
+        return parseInt(match, 10);
+    });
+    window.location.href = '/download/' + id[0];
+    
+})

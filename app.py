@@ -1,5 +1,6 @@
-from flask import Flask, render_template, jsonify, request, redirect, session, url_for
+from flask import Flask, render_template, jsonify, request, redirect, session, url_for, send_file
 import pymysql
+import io
 
 app = Flask(__name__)
 app.secret_key = '1234'
@@ -92,7 +93,6 @@ def index():
             
             cursor.execute(file_check_query)
             post_ids = cursor.fetchall()
-            print(post_ids)
             
             return render_template('index.html', posts=result, post_ids=post_ids)
     
@@ -113,7 +113,7 @@ def write_post():
     user_id = request.form['userId']
     secret_key = request.form['secretKey']
     content = request.form['content']
-    files = request.files.getlist('files[]')
+    files = request.files.getlist('files')
     
     try:
         with conn.cursor() as cursor:
@@ -172,15 +172,54 @@ def view_post(id):
                 WHERE p.id = {id}
             """
 
+            file_count_query = f"""
+                SELECT COUNT(*)
+                FROM file f
+                INNER JOIN post p ON p.id = f.post_id
+                WHERE p.id = {id}
+            """
+            
+            file_id_query = f"""
+                SELECT id
+                FROM file
+                WHERE post_id = {id}
+            """
+
             cursor.execute(query)
             result = cursor.fetchone()
 
-        return render_template('view.html', post=result)
+            cursor.execute(file_count_query)
+            file_count = cursor.fetchone()
+
+            cursor.execute(file_id_query)
+            file_id = cursor.fetchone()
+
+        return render_template('view.html', post=result, file_count=file_count, file_id=file_id)
 
     except Exception as e:
         print(e)
         return "error"
 
+@app.route('/download/<int:fileId>')
+def download(fileId):
+    conn = make_handle()
+    query = f"""
+        SELECT file_name, file_data
+        FROM file
+        WHERE id = {fileId}
+    """
+    
+    try:
+        with conn.cursor() as cursor:
+            cursor.execute(query)
+            file_name, file_data = cursor.fetchone()
+            file_stream = io.BytesIO(file_data)
+            return send_file(file_stream, download_name=file_name, as_attachment=True)
+    except Exception as e:
+        print(e)
+        pass
+    
+        
 
 @app.route('/get_post_data/<int:id>')
 def get_post_data(id):

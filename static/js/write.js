@@ -15,10 +15,7 @@ document.getElementById("post_button").addEventListener("click", function () {
     formData.append("content", contentValue);
 
     if (files) {
-        for (var i = 0; i < files.length; i++) {
-            formData.append("files[]", files[i]);
-            console.log("추가된 파일: ", files[i].name);
-        }
+        formData.append("files", files[0]);
     }
 
     if (!checkbox.checked || (checkbox.checked && secretKeyValue.length > 0)) {

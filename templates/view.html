@@ -17,6 +17,13 @@
             <div class="board_view">
                 <div class="title">
                     {{ post[2] }}
+                    {% if file_id %}
+                    <div id="file_download">
+                        <input type="hidden" id="file_id" value="{{ file_id }}">
+                        첨부파일
+                        <img src="../static/images/download.png" alt="download">
+                    </div>
+                    {% endif %}
                 </div>
                 <div class="info">
                     <dl>
