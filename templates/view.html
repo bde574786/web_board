@@ -16,7 +16,7 @@
         <div class="board_view_wrap">
             <div class="board_view">
                 <div class="title">
-                    {{ post[1] }}
+                    {{ post[2] }}
                 </div>
                 <div class="info">
                     <dl>
@@ -25,7 +25,7 @@
                     </dl>
                     <dl>
                         <dt>글쓴이</dt>
-                        <dd>{{ post[2] }}</dd>
+                        <dd>{{ post[1] }}</dd>
                     </dl>
                     <dl>
                         <dt>작성일</dt>
@@ -38,7 +38,7 @@
             </div>
         </div>
         <div class="button_wrap">
-            {% if session['user_id'] == post[2] %}
+            {% if session['user_id'] == post[1] %}
             <button onclick="window.location.href='/get_post_data/{{ post[0] }}';" class="edit_button" id="edit_button">
                 수정
             </button>

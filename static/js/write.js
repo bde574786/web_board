@@ -1,25 +1,33 @@
 document.getElementById("post_button").addEventListener("click", function () {
     
     var titleValue = document.querySelector('.board_write .title input[type="text"]').value;
-    var writerValue = document.querySelector('.board_write .info input[type="text"]').value;
+    var userIdValue = document.querySelector('.board_write .info input[type="text"]').value;
     var checkbox = document.getElementById("checkbox");
     var secretKeyValue = document.getElementById('password').value;
     var contentValue = document.querySelector('.board_write .content textarea').value;
+    var files = document.getElementById('fileInput').files;
 
-    var post = {
-            title: titleValue,
-            writer: writerValue,
-            secretKey: secretKeyValue,
-            content: contentValue
+    var formData = new FormData();
+
+    formData.append("title", titleValue);
+    formData.append("userId", userIdValue);
+    formData.append("secretKey", secretKeyValue);
+    formData.append("content", contentValue);
+
+    if (files) {
+        for (var i = 0; i < files.length; i++) {
+            formData.append("files[]", files[i]);
+            console.log("추가된 파일: ", files[i].name);
         }
-    
+    }
 
     if (!checkbox.checked || (checkbox.checked && secretKeyValue.length > 0)) {
         $.ajax({
             type: "POST",
             url: "/write_post",
-            contentType: "application/json",
-            data: JSON.stringify(post),
+            data: formData,
+            processData: false,
+            contentType: false,
             success: function (response) {
                 if (response === "success") {
                     alert("글 쓰기 성공 !!")

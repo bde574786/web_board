@@ -363,7 +363,12 @@ a {
 }
 
 .board_write .title dl {
+    width: 100%;
     font-size: 0;
+}
+
+.file-upload {
+    margin-left: 100px;
 }
 
 .board_write .info .dl {

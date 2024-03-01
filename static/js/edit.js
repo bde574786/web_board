@@ -2,10 +2,9 @@ document.getElementById('post_button').addEventListener("click", function () {
 
     var post_id = document.getElementById('post_id').value;
     var titleValue = document.querySelector('.board_write .title input[type="text"]').value;
-    var writerValue = document.querySelector('.board_write .info input[type="text"]').value;
     var contentValue = document.querySelector('.board_write .content textarea').value;
 
-    post = {"id": post_id, "title": titleValue, "writer": writerValue, "content": contentValue}
+    post = {"id": post_id, "title": titleValue, "content": contentValue}
     
     $.ajax({
         type: "POST",

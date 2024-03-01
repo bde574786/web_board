@@ -8,31 +8,43 @@ def initialize_table():
     conn = make_handle()
     try:
         with conn.cursor() as cursor:
-            create_post_table_query = """
-                    CREATE TABLE IF NOT EXISTS POST(
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        title VARCHAR(255) not null,
-                        writer VARCHAR(255) not null,
-                        content TEXT not null,
-                        secret_key varchar(255),
-                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-                        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-                )
-                """
             
             create_user_table_query = """
-                    CREATE TABLE IF NOT EXISTS USER(
+                    CREATE TABLE IF NOT EXISTS user(
                         id INT AUTO_INCREMENT PRIMARY KEY,
-                        user_id varchar(255) not null,
-                        username varchar(255) not null,
-                        phone_number varchar(255) not null,
-                        password varchar(255) not null,
-                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP
-                    )
+                        user_id VARCHAR(255) NOT NULL,
+                        username VARCHAR(255) NOT NULL,
+                        phone_number VARCHAR(255) NOT NULL,
+                        password VARCHAR(255) NOT NULL
+                    );
+            """
+            
+            create_post_table_query = """ 
+                    CREATE TABLE IF NOT EXISTS post(
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        user_id INT,
+                        title VARCHAR(255) NOT NULL,
+                        content TEXT NOT NULL,
+                        secret_key VARCHAR(255),
+                        created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                        FOREIGN KEY (user_id) REFERENCES user(id)
+                    );
+                """
+            
+            create_file_table_query = """
+                CREATE TABLE IF NOT EXISTS file(
+                    id INT AUTO_INCREMENT PRIMARY KEY,
+                    post_id INT,
+                    file_name VARCHAR(255),
+                    file_data LONGBLOB,
+                    FOREIGN KEY (post_id) REFERENCES POST(id) ON DELETE CASCADE
+                );
             """
                 
-            cursor.execute(create_post_table_query)
             cursor.execute(create_user_table_query)
+            cursor.execute(create_post_table_query)
+            cursor.execute(create_file_table_query)
     except:
         return "error"
 
@@ -58,13 +70,14 @@ def index():
         with conn.cursor() as cursor:
             query =  """
                 SELECT 
-                    id, 
-                    title, 
-                    writer,
-                    secret_key,
-                    DATE_FORMAT(created_at, '%Y-%m-%d')
+                    p.id, 
+                    p.title, 
+                    u.user_id,
+                    p.secret_key,
+                    DATE_FORMAT(p.created_at, '%Y-%m-%d')
                 FROM
-                    post
+                    post p
+                INNER JOIN user u ON p.user_id = u.id
                 ORDER BY created_at DESC
             """
             
@@ -85,35 +98,50 @@ def write():
 
 @app.route('/write_post', methods=["POST"])
 def write_post():
-    data = request.json
     conn = make_handle()
     
-    title = data['title']
-    writer = data['writer']
-    secret_key = data['secretKey']
-    content = data['content']
+    title = request.form['title']
+    user_id = request.form['userId']
+    secret_key = request.form['secretKey']
+    content = request.form['content']
+    files = request.files.getlist('files[]')
     
-    if(secret_key):
-        query = f"""
-                INSERT INTO 
-                    POST(title, writer, secret_key, content)
-                VALUES('{title}', '{writer}', '{secret_key}', '{content}');
-            """
-    else:
-        query = f"""
-                INSERT INTO 
-                    POST(title, writer, content)
-                VALUES('{title}', '{writer}', '{content}');
-            """
-    
-    print(query)
     try:
         with conn.cursor() as cursor:
-            cursor.execute(query)
+            id = get_id_by_user_id(cursor, user_id)
+            conn.begin()
+            if(secret_key):
+                create_post = f"""
+                        INSERT INTO 
+                            POST(user_id, title, content, secret_key)
+                        VALUES('{id}', '{title}', '{content}', '{secret_key}');
+                    """
+            else:
+                create_post = f"""
+                        INSERT INTO 
+                            POST(user_id, title, content)
+                        VALUES('{id}', '{title}', '{content}');
+                    """
+                
+            cursor.execute(create_post)
+
+            if files:
+                post_id = cursor.lastrowid
+                for file in files:
+                    file_name = file.filename
+                    file_data = file.read()
+            
+                    file_upload = """
+                        INSERT INTO file(post_id, file_name, file_data)
+                        VALUES(%s, %s, %s)
+                    """
+                    cursor.execute(file_upload, (post_id, file_name, file_data))
             conn.commit()
             return "success"        
     
-    except:
+    except Exception as e:
+        conn.rollback()
+        print(e)
         return "error"
 
 
@@ -125,21 +153,23 @@ def view_post(id):
         with conn.cursor() as cursor:
             query = f"""
                 SELECT 
-                    id, 
-                    title, 
-                    writer, 
-                    content, 
+                    p.id,
+                    u.user_id,
+                    p.title,
+                    p.content, 
                     DATE_FORMAT(created_at, '%Y-%m-%d')
-                FROM post
-                WHERE id = {id}
+                FROM post p
+                INNER JOIN user u ON p.user_id = u.id
+                WHERE p.id = {id}
             """
-            
+
             cursor.execute(query)
             result = cursor.fetchone()
 
         return render_template('view.html', post=result)
 
-    except:
+    except Exception as e:
+        print(e)
         return "error"
 
 
@@ -151,12 +181,13 @@ def get_post_data(id):
         with conn.cursor() as cursor:
             query = f"""
                 SELECT
-                    id,
-                    title,
-                    writer,
-                    content
-                FROM post
-                WHERE id={id}
+                    p.id,
+                    p.title,
+                    p.content,
+                    u.user_id
+                FROM post p
+                INNER JOIN user u ON p.user_id = u.id
+                WHERE p.id = {id}
             """
             
             cursor.execute(query)
@@ -171,13 +202,15 @@ def get_post_data(id):
 @app.route('/edit_post/<int:id>', methods=['POST'])
 def edit_post(id):
     data = request.json
-    conn = make_handle()
+    title = data['title']
+    content = data['content']
     
+    conn = make_handle()
     try:
         with conn.cursor() as cursor:
             query = f"""
                 UPDATE post
-                SET title ='{data['title']}', writer = '{data['writer']}', content = '{data['content']}'
+                SET title ='{title}', content = '{content}'
                 WHERE id = {id}
             """
             
@@ -406,6 +439,18 @@ def error_404(e):
 @app.errorhandler(500)
 def error_500(e):
     return render_template('error_500.html')
+
+
+
+def get_id_by_user_id(cursor, user_id):
+    query = f"""
+        SELECT id
+        FROM user
+        WHERE user_id = '{user_id}'
+    """
+    cursor.execute(query)
+    user_id_row = cursor.fetchone()
+    return user_id_row[0]
 
 
 if __name__ == '__main__':
