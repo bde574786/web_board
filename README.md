@@ -118,11 +118,4 @@
 ### 🚨 예외 처리 기능
 
 - 주요 예외에 따른 페이지 처리
-
-     
-
 ![image.png](image/image%2012.png)
-
-![image.png](image/image%2013.png)
-
-![image.png](image/image%2014.png)
