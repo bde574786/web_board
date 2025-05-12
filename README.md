@@ -10,9 +10,11 @@
 
 ## 🧪 기술 스택
 
-- 백엔드: Python + Flask + Jinja2
-- DB: MySQL
-- 프론트엔드: HTML, CSS, JavaScript, Bootstrap
+<img src="https://img.shields.io/badge/MySQL-4479A1?style=flat&logo=MySQL&logoColor=white"/>
+
+<img src="https://img.shields.io/badge/Python-3776AB?style=flat&logo=Python&logoColor=white"/> <img src="https://img.shields.io/badge/Flask-000000?style=flat&logo=Flask&logoColor=white"/> <img src="https://img.shields.io/badge/Jinja2-B41717?style=flat&logo=Jinja&logoColor=white"/>
+
+<img src="https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=JavaScript&logoColor=white"/> <img src="https://img.shields.io/badge/CSS-663399?style=flat&logo=CSS&logoColor=white"/>
 
 ## 🧩 ERD (Entity-Relationship Diagram)
 
